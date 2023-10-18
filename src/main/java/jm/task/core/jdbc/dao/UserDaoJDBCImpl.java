@@ -68,7 +68,7 @@ public class UserDaoJDBCImpl implements UserDao {
             while (set.next()) {
                 users.add(new User(set.getString(2), set.getString(3), set.getByte(4)));
             }
-            System.out.println(users.toString());
+
             return users;
         } catch (SQLException e) {
             throw new RuntimeException(e);
