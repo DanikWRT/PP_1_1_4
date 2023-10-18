@@ -3,9 +3,11 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
@@ -15,7 +17,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         String queryCreateUsersTable = "CREATE TABLE users("
-                + "ID INT(5) NOT NULL AUTO_INCREMENT,"
+                + "id INT(5) NOT NULL AUTO_INCREMENT, "
                 + "name VARCHAR(20) NOT NULL, "
                 + "lastname VARCHAR(20) NOT NULL, "
                 + "age INT(3) NOT NULL, " + "PRIMARY KEY (ID) "
@@ -42,7 +44,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     public void dropUsersTable() {
-        String query = "DROP TABLE 'users'";
+        String query = "DROP TABLE users";
         updateTable(query, "Таблица удалена");
     }
 
@@ -59,11 +61,24 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() {
+        String query = "SELECT * FROM users";
+        try(Statement statement = Util.getConnection().createStatement();) {
+            ResultSet set = statement.executeQuery(query);
+            List<User> users = new ArrayList<>();
+            while (set.next()) {
+                users.add(new User(set.getString(2), set.getString(3), set.getByte(4)));
+            }
+            System.out.println(users.toString());
+            return users;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        return null;
+
     }
 
     public void cleanUsersTable() {
-
+        String sql = "DELETE FROM users";
+        updateTable(sql, "БД успешно очищена");
     }
 }
