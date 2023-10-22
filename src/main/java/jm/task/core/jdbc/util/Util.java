@@ -49,6 +49,7 @@ public class Util {
             } catch (Exception e) {
                 e.printStackTrace();
 
+
             }
         }
         return sessionFactory;
