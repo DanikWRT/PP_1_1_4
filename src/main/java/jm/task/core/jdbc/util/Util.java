@@ -1,9 +1,9 @@
 package jm.task.core.jdbc.util;
-import jm.task.core.jdbc.model.User;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.AvailableSettings;
+import jm.task.core.jdbc.model.User;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
@@ -43,7 +43,9 @@ public class Util {
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+                System.out.println("Not problem creating session factory");
             } catch (Exception e) {
+                System.out.println("Problem creating session factory");
                 e.printStackTrace();
             }
         }
