@@ -12,17 +12,14 @@ import java.sql.*;
 import java.util.Properties;
 
 public class Util {
-//    private static final String URL = "jdbc:mysql://localhost:3306/kata_114";
-//    private static final String USERNAME = "root";
-//    private static final String PASSWORD = "root";
-//
-//    public static Connection getConnection() {
-//        try {
-//            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/kata_114?autoReconnect=true&useSSL=false";
     private static final String USERNAME = "root";
@@ -48,10 +45,10 @@ public class Util {
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
                 e.printStackTrace();
-
-
             }
         }
         return sessionFactory;
     }
+
+
 }
